@@ -64,76 +64,91 @@ const promptManager= data => {
     ]);
 };
 
-const addEmployee = data => {
-    return inquirer.prompt([
-        {
-            type: 'list',
-            message: "How would you like to proceed?",
-            name: 'employeeList',                
-            choices: ["Add Engineer", "Add Intern", "Finish Building Team"]
-        },  
-    ])
-};
 
-const promptEngineer = data => {
+
+const promptAddEmployee = answer => {   
+        return inquirer.prompt([
+            {
+                type: 'list',
+                message: "How would you like to proceed?",
+                name: 'employeeList',                
+                choices: ["Add Engineer", "Add Intern", "Finish Building Team"]
+            }
+        ])    
+    };
+
+
+    const addEmployee = async () => {
+        await promptAddEmployee()
+        .then(promptEmployee)    
+    }
+
+    
+ 
+const promptEmployee = (answer) => {  
+  console.log(answer.employeeList);
+    if(answer.employeeList === "Add Engineer") {
+          promptEngineer();        
+        } else if(answer.employeeList === "Add Intern") {
+            promptIntern();
+        } else {
+    console.log("generating page")   
+    }
+
+    };
+    
+
+
+
+
+const promptEngineer = data => {   
     return inquirer.prompt([
         {
             type: 'input',
             name: 'engineer',
             message: "What is the engineer's name?",
-            validate: engineerInput => {
-                if (engineerInput) {
-                return true;
-                } else {
-                console.log('Please enter a name!');
-                return false;
-                }
-            }
+            // validate: engineerInput => {
+            //     if (engineerInput) {
+            //     return true;
+            //     } else {
+            //     console.log('Please enter a name!');
+            //     return false;
+            //     }
+            // }
+        },
+        
+        {
+            type: 'input',
+            name: 'engineerEmail',
+            message: "What is the engineer's email address?",           
+            // validate: function (engineerEmail) {  
+            //     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmail)        
+            //     if (valid) {                  
+            //         return true;
+            //     } else {
+            //         console.log("Please enter a valid email address!")
+            //             return false;
+            //     }
+            // }
         },
         {
             type: 'input',
             name: 'engineerID',
             message: "What is the engineer's employee ID number?",            
-            validate: (engineerIDNumber) => {
-                engineerIDNumber = engineerIDNumber || 0;  
-                if (engineerIDNumber > 0) {
-                return true;                            
-                } else {    
-                console.log('Please enter an employee ID!');    
-                return false;    
+            // validate: (engineerIDNumber) => {
+            //     engineerIDNumber = engineerIDNumber || 0;  
+            //     if (engineerIDNumber > 0) {
+            //     return true;                            
+            //     } else {    
+            //     console.log('Please enter an employee ID!');    
+            //     return false;    
             
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'engineerEmail',
-            message: "What is the engineer's email address?",
-            default: () => {},
-            validate: function (engineerEmail) {  
-                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmail)        
-                if (valid) {                  
-                    return true;
-                } else {
-                    console.log("Please enter a valid email address!")
-                        return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'github',
-            message: "What is the engineer's GitHub user name?",
-            validate: github => {
-                if (github) {
-                    return true;
-                } else {
-                    console.log("Please enter the engineer's GitHub user name!");
-                    return false;
-                }
-                }
-            },              
-        ]);
+            //     }
+            // }
+        },      
+          
+        
+        ]).then(addEmployee);    
     };
 
     const promptIntern = data => {
@@ -142,59 +157,59 @@ const promptEngineer = data => {
                 type: 'input',
                 name: 'intern',
                 message: "What is the intern's name?",
-                validate: internInput => {
-                    if (internInput) {
-                    return true;
-                    } else {
-                    console.log('Please enter a name!');
-                    return false;
-                    }
-                }
+                // validate: internInput => {
+                //     if (internInput) {
+                //     return true;
+                //     } else {
+                //     console.log('Please enter a name!');
+                //     return false;
+                //     }
+                // }
             },
             {
                 type: 'input',
                 name: 'internID',
                 message: "What is the intern's employee ID number?",            
-                validate: (internIDNumber) => {
-                    internIDNumber = internIDNumber || 0;  
-                    if (internIDNumber > 0) {
-                    return true;                            
-                    } else {    
-                    console.log('Please enter an employee ID!');    
-                    return false;    
+                // validate: (internIDNumber) => {
+                //     internIDNumber = internIDNumber || 0;  
+                //     if (internIDNumber > 0) {
+                //     return true;                            
+                //     } else {    
+                //     console.log('Please enter an employee ID!');    
+                //     return false;    
                 
-                    }
-                }
+                //     }
+                // }
             },
             {
                 type: 'input',
                 name: 'internEmail',
                 message: "What is the intern's email address?",
                 default: () => {},
-                validate: function (internEmail) {  
-                    valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmail)        
-                    if (valid) {                  
-                        return true;
-                    } else {
-                        console.log("Please enter a valid email address!")
-                            return false;
-                    }
-                }
+                // validate: function (internEmail) {  
+                //     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmail)        
+                //     if (valid) {                  
+                //         return true;
+                //     } else {
+                //         console.log("Please enter a valid email address!")
+                //             return false;
+                //     }
+                // }
             },
             {
                 type: 'input',
                 name: 'school',
                 message: "What school is the intern attending?",
-                validate: school => {
-                    if (school) {
-                        return true;
-                    } else {
-                        console.log("Please enter the intern's school!");
-                        return false;
-                    }
-                    }
+                // validate: school => {
+                //     if (school) {
+                //         return true;
+                //     } else {
+                //         console.log("Please enter the intern's school!");
+                //         return false;
+                //     }
+                //     }
                 },              
-            ]);
+            ]).then(addEmployee);
         };
     
     module.exports = { promptManager, addEmployee, promptEngineer, promptIntern }
