@@ -7,75 +7,73 @@ const promptManager= data => {
             type: 'input',
             name: 'manager',
             message: "What is the manager's name?",
-            validate: managerInput => {
-              if (managerInput) {
-                return true;
-              } else {
-                console.log('Please enter a name!');
-                return false;
-              }
-            }
+            // validate: managerInput => {
+            //   if (managerInput) {
+            //     return true;
+            //   } else {
+            //     console.log('Please enter a name!');
+            //     return false;
+            //   }
+            // }
         },
         {
             type: 'input',
             name: 'managerID',
             message: "What is the manager's employee ID number?",            
-            validate: (managerIDNumber) => {
-              managerIDNumber = managerIDNumber || 0;  
-              if (managerIDNumber > 0) {
-                return true;                            
-              } else {    
-                console.log('Please enter an employee ID!');    
-                return false;    
+            // validate: (managerIDNumber) => {
+            //   managerIDNumber = managerIDNumber || 0;  
+            //   if (managerIDNumber > 0) {
+            //     return true;                            
+            //   } else {    
+            //     console.log('Please enter an employee ID!');    
+            //     return false;    
           
-              }
-            }
+            //   }
+            // }
         },
         {
             type: 'input',
             name: 'managerEmail',
             message: "What is the manager's email address?",
             default: () => {},
-            validate: function (managerEmail) {  
-                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(managerEmail)        
-                if (valid) {                  
-                    return true;
-                } else {
-                    console.log("Please enter a valid email address!")
-                     return false;
-                }
-            }
+            // validate: function (managerEmail) {  
+            //     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(managerEmail)        
+            //     if (valid) {                  
+            //         return true;
+            //     } else {
+            //         console.log("Please enter a valid email address!")
+            //          return false;
+            //     }
+            // }
         },
         {
             type: 'input',
             name: 'managerPhone',
-            message: "What is the manager's telephone number (XXX) XXX-XXXX ?",
+            message: "What is the manager's telephone number XXX XXX-XXXX ?",
             default: () => {},
-                validate: function (managerPhone) {  
-                    valid = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(managerPhone)        
-                    if (valid) {                  
-                        return true;
-                    } else {
-                        console.log("Please enter a valid phone number!")
-                        return false;
-                    } 
-                } 
-            }                                 
-        ]);
-    };
+            //     validate: function (managerPhone) {  
+            //         valid = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(managerPhone)        
+            //         if (valid) {                  
+            //             return true;
+            //         } else {
+            //             console.log("Please enter a valid phone number!")
+            //             return false;
+            //         } 
+            //     } 
+         },     
+    ]);
+};
 
-
-const promptAddEmployee= data => {
+const addEmployee = data => {
     return inquirer.prompt([
         {
             type: 'list',
             message: "How would you like to proceed?",
-            name: 'addEmployee',                
+            name: 'employeeList',                
             choices: ["Add Engineer", "Add Intern", "Finish Building Team"]
-        },     
-        ]);
-    };
-
+        },  
+    ])
+};
 
 const promptEngineer = data => {
     return inquirer.prompt([
@@ -199,4 +197,4 @@ const promptEngineer = data => {
             ]);
         };
     
-    module.exports = { promptManager, promptAddEmployee, promptEngineer, promptIntern }
+    module.exports = { promptManager, addEmployee, promptEngineer, promptIntern }
