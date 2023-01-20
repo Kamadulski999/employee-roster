@@ -23,7 +23,7 @@ THEN I am prompted to enter the engineer’s name, ID, email, and GitHub usernam
 WHEN I select the intern option</br>
 THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu</br>
 WHEN I decide to finish building my team</br>
-THEN I exit the application, and the HTML is generated</br>
+THEN I exit the application, and the HTML is generated </br>
 
 ## Demonstration
 [![image](/assets/images/readme.jpg)](https://drive.google.com/file/d/10tvd7viXiYsewr6z3Ycx-Co2i8kLiKfe/view?usp=sharing)
